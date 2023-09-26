@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TheTodoService.Interfaces;
 
-namespace TheTodoRazerApp.Pages
+namespace TheTodoWeb.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        private readonly IToDoItemService _toDoItemService;
+
+        public IndexModel(ILogger<IndexModel> logger, IToDoItemService toDoItemService)
         {
             _logger = logger;
+            _toDoItemService = toDoItemService;
         }
 
         public void OnGet()

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace TheTodoRazerApp.Pages
+namespace TheTodoWeb.Pages
 {
     public class PrivacyModel : PageModel
     {
