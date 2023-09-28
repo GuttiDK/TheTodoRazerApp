@@ -16,5 +16,10 @@ namespace TheTodoRazerApp.Pages
         {
 
         }
+
+        public IActionResult OnPost()
+        {
+            return RedirectToPage("ToDoList");
+        }
     }
 }
