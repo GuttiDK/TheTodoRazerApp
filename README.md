@@ -5,7 +5,7 @@
 Todo work is a website where you can create tasks with title, description and priorities. You can complet task and se how much time used on taskes and uncomplet task. You have to be a user on the website to use its features.
 
 ## The Maker
-Made by Christian C. Høttges
+Made by Christian C. HÃ¸ttges
 
 Last updated: 26-09-2023
 
