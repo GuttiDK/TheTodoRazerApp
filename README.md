@@ -5,7 +5,7 @@
 Todo work is a website where you can create tasks with title, description and priorities. You can complet task and se how much time used on taskes and uncomplet task. You have to be a user on the website to use its features.
 
 ## The Maker
-Made by Christian C. Høttges
+Made by Christian C. HÃ¸ttges
 
 Last updated: 26-09-2023
 
@@ -31,14 +31,18 @@ Last updated: 26-09-2023
 
 # Features
 
-- **Front-end templete**: Allows users to only see the templete.
-- **Full back-end**: Allows users use execute all the features of the application thru the repository and services.
+- **Front-end**: Allows users to see the Todolist and create button.
+- **Back-end**: Allows users use execute all the features of the application thru the repository and services.
 - **Repository pattern**: Allows users to use the repository pattern to get data from the database.
 - **Service pattern**: Allows users to use the service pattern to get data from the repository.
 
 # Updates
 
-**Version 0.0.2** (26/09/2023) - Current version
+**Version 0.0.3** (28/09/2023) - Current version
+- Added first front-end page with data from the database.
+- Added delete, edit and still working on create and complete tasks.
+
+**Version 0.0.2** (26/09/2023)
 - Full backend with database.
 - Added repository pattern and service pattern.
 - Added front-end handling of data from repository and service layer.
@@ -47,18 +51,21 @@ Last updated: 26-09-2023
 - Initial pre-release of The Todo List Application.
 - Features include Front-end templete.
 
-### Upcoming features
-
+## Upcoming features
 - Initial pre-release of Front-end
 - Creating, deleting, editing and completing tasks.
 
-### Tags
+## In progress
+- Creating and editing tasks and completing tasks.
+- Fixing bug with back-end to not cast a error when trying to find all uncompleted or all completed or finding one by Guid.
+
+## Tags
+- <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-0.0.3">Front-end - v0.0.3</a>
 - <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-0.0.2">Full backend - v0.0.2</a>
 - <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-0.0.1">Structure - v0.0.1</a>
 
 # Bugs & Known Bugs and Bug Reporting
 We are constantly working to improve this application. If you encounter any bugs or errors, please report them to us.
-
 
 ## Contact Info
 **Phone number:** +45 28 78 34 14  

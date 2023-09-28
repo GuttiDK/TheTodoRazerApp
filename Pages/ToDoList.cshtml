@@ -1,32 +1,72 @@
-﻿@page
+@page
+@using TheTodoService.DataTransferObjects;
+@using TheTodoService.Enums;
 @model TheTodoWeb.Pages.ToDoListModel
 @{
     ViewData["Title"] = "ToDoList";
 }
 
 <h3>ToDoList</h3>
-
+                            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Create</a>
 <hr />
 
-<table class="table">
-    <thread>
+<table class="table table-hover">
+    <thead>
      <tr>
             <th>Id</th>
             <th>Description</th>
-            <th>Created Time</th>
-            <th>IsCompleted</th>
+            <th>Created</th>
+            <th>Completed</th>
             <th>Priory</th>
+            <th>Actions</th>
         </tr>
-    </thread>
+    </thead>
 <tbody>
-        @foreach (var item in Model.ToDoItems)
+        @foreach (ToDoItemDto item in Model.ToDoItems)
         {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.TaskDescription</td>
-                    <td>@item.CreatedTime</td>
-                    <td>@item.IsCompleted</td>
-                    <td>@item.Priority</td>
-                </tr>
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.TaskDescription</td>
+                                <td>@item.CreatedTime</td>
+                                <td>@item.IsCompleted</td>
+                                <td>@item.Priority</td>
+<td>
+                                    <a class="btn btn-primary" asp-page="EditToDoList" asp-route-id="@item.Id">Edit</a>
+                                            <form method="post" asp-page-handler="Completed" asp-route-id="@item.Id"><a class="btn btn-danger" asp-route-id="@item.Id">Complete</a></form>
+                                            <button ></button>
+</td>
+                            </tr>
         }
+</tbody>
 </table>
+
+
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+  <div class="offcanvas-body">
+    <div>
+      Here can you create a new todo item.
+      <hr />
+    </div>
+<form method="post" asp-page-handler="CreateTask">
+    <div class="input-group mb-3">
+  <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+  <input type="text" class="form-control" asp-for="Description" id="description" name="description">
+</div>
+
+<div class="input-group mb-3">
+  <label class="input-group-text" for="inputGroupSelect01">Priority</label>
+  <select class="form-select" asp-for="PriorityForm" name="priorityForm">
+                    @foreach (PrioryEnumDto priorityEnum in Enum.GetValues(typeof(PrioryEnumDto)))
+                    {
+                                        <option value="@priorityEnum">@priorityEnum</option>
+                    }
+  </select>
+  </div>
+<button class="btn btn-primary" type="submit">Button</button>
+</form>
+  </div>
+</div>

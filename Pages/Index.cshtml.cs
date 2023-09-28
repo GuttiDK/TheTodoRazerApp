@@ -20,5 +20,10 @@ namespace TheTodoWeb.Pages
         {
 
         }
+
+        public IActionResult OnPost()
+        {
+            return RedirectToPage("ToDoList");
+        }
     }
 }
