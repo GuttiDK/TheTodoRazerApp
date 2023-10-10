@@ -10,19 +10,19 @@ using TheTodoService.Interfaces;
 
 namespace TheTodoWeb.Pages
 {
-    public class ToDoListModel : PageModel
+    public class UnCompletedToDoListModel : PageModel
     {
         private readonly IToDoItemService _toDoItemService;
 
         public ObservableCollection<ToDoItemDto> ToDoItems = new();
 
         [BindProperty]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [BindProperty]
         public PrioryEnum PriorityForm { get; set; }
 
 
-        public ToDoListModel(IToDoItemService toDoItemService)
+        public UnCompletedToDoListModel(IToDoItemService toDoItemService)
         {
             _toDoItemService = toDoItemService;
         }
@@ -51,7 +51,7 @@ namespace TheTodoWeb.Pages
             return RedirectToPage("ToDoList");
         }
 
-        public async Task<IActionResult> OnPostCreateTask()
+        public async Task<IActionResult> OnPostCreateTaskAsync()
         {
             if (ModelState.IsValid)
             {

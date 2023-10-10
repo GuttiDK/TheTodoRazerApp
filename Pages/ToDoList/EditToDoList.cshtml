@@ -1,0 +1,31 @@
+﻿@page "{id:Guid}"
+@using TheTodoService.Enums;
+@model TheTodoWeb.Pages.EditToDoListModel
+@{
+}
+
+<h3>EditToDoList</h3>
+<hr />
+<div>
+    Here can you edit a todo item.
+    <hr />
+
+<form method="post" asp-page-handler="EditTaskAsync">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+        <input type="text" class="form-control" asp-for="TodoItem.TaskDescription" id="description" name="description">
+        </div>
+
+<div class="input-group mb-3">
+  <label class="input-group-text" for="inputGroupSelect01">Priority</label>
+  <select class="form-select" asp-for="TodoItem.Priority" name="priorityForm">
+                    @foreach (PrioryEnumDto priorityEnum in Enum.GetValues(typeof(PrioryEnumDto)))
+                    {
+                                            <option value="@priorityEnum">@priorityEnum</option>
+                    }
+  </select>
+</div>
+<button class="btn btn-primary" type="submit">Button</button>
+</form>
+
+</div>
