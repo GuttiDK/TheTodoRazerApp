@@ -12,7 +12,7 @@ namespace TheTodoWeb.Pages
         private readonly IToDoItemService _toDoItemService;
 
         [BindProperty]
-        public ToDoItemDto TodoItem { get; set; }
+        public ToDoItemDto ToDoItems { get; set; }
 
         public EditToDoListModel(IToDoItemService toDoItemService)
         {
@@ -25,7 +25,7 @@ namespace TheTodoWeb.Pages
 
             if (toDoItemDto != null)
             {
-                TodoItem = new ToDoItemDto()
+                ToDoItems = new()
                 {
                     Id = toDoItemDto.Id,
                     TaskDescription = toDoItemDto.TaskDescription,
@@ -40,22 +40,23 @@ namespace TheTodoWeb.Pages
 
         public async Task<IActionResult> OnPostUpdateTask()
         {
-            if (TodoItem != null)
+            if (ModelState.IsValid)
             {
-                ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(TodoItem.Id);
+                ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(ToDoItems.Id);
 
                 if (toDoItemDto != null)
                 {
-                    toDoItemDto.TaskDescription = TodoItem.TaskDescription;
-                    toDoItemDto.CreatedTime = TodoItem.CreatedTime;
-                    toDoItemDto.FinishedTime = TodoItem.FinishedTime;
-                    toDoItemDto.IsCompleted = TodoItem.IsCompleted;
-                    toDoItemDto.Priority = TodoItem.Priority;
+                    toDoItemDto.Id = ToDoItems.Id;
+                    toDoItemDto.TaskDescription = ToDoItems.TaskDescription;
+                    toDoItemDto.CreatedTime = ToDoItems.CreatedTime;
+                    toDoItemDto.FinishedTime = ToDoItems.FinishedTime;
+                    toDoItemDto.IsCompleted = ToDoItems.IsCompleted;
+                    toDoItemDto.Priority = ToDoItems.Priority;
 
-                    await _toDoItemService.UpdateAsync(TodoItem);
+                    await _toDoItemService.UpdateAsync(toDoItemDto);
                 }
-            }
 
+            }
             return RedirectToPage("/ToDoList/UnCompletedToDoList");
         }
 
