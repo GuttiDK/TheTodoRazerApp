@@ -11,10 +11,8 @@ namespace TheTodoWeb.Pages
     {
         private readonly IToDoItemService _toDoItemService;
 
-        public ObservableCollection<ToDoItemDto> ToDoItems = new();
-
         [BindProperty]
-        public ToDoItemDto? TodoItem { get; set; }
+        public ToDoItemDto TodoItem { get; set; }
 
         public EditToDoListModel(IToDoItemService toDoItemService)
         {
@@ -32,6 +30,7 @@ namespace TheTodoWeb.Pages
                     Id = toDoItemDto.Id,
                     TaskDescription = toDoItemDto.TaskDescription,
                     CreatedTime = toDoItemDto.CreatedTime,
+                    FinishedTime = toDoItemDto.FinishedTime,
                     IsCompleted = toDoItemDto.IsCompleted,
                     Priority = toDoItemDto.Priority
                 };
@@ -39,7 +38,7 @@ namespace TheTodoWeb.Pages
             }
         }
 
-        public async Task<IActionResult> OnPostEditTaskAsync()
+        public async Task<IActionResult> OnPostUpdateTask()
         {
             if (TodoItem != null)
             {
@@ -49,6 +48,7 @@ namespace TheTodoWeb.Pages
                 {
                     toDoItemDto.TaskDescription = TodoItem.TaskDescription;
                     toDoItemDto.CreatedTime = TodoItem.CreatedTime;
+                    toDoItemDto.FinishedTime = TodoItem.FinishedTime;
                     toDoItemDto.IsCompleted = TodoItem.IsCompleted;
                     toDoItemDto.Priority = TodoItem.Priority;
 
@@ -56,7 +56,7 @@ namespace TheTodoWeb.Pages
                 }
             }
 
-            return RedirectToPage("ToDoList");
+            return RedirectToPage("/ToDoList/UnCompletedToDoList");
         }
 
     }

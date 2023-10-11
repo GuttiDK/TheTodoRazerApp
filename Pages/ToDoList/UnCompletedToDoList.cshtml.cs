@@ -14,12 +14,13 @@ namespace TheTodoWeb.Pages
     {
         private readonly IToDoItemService _toDoItemService;
 
-        public ObservableCollection<ToDoItemDto> ToDoItems = new();
 
         [BindProperty]
         public string? Description { get; set; }
         [BindProperty]
         public PrioryEnum PriorityForm { get; set; }
+        [BindProperty]
+        public ObservableCollection<ToDoItemDto>? ToDoItems { get; set;}
 
 
         public UnCompletedToDoListModel(IToDoItemService toDoItemService)
@@ -29,12 +30,12 @@ namespace TheTodoWeb.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            ToDoItems = await _toDoItemService.GetAllAsync();
+            ToDoItems = await _toDoItemService.GetAllUncompletedAsync();
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCompleted(Guid id)
+        public async Task<IActionResult> OnPostCompletedTask(Guid id)
         {
             if (ModelState.IsValid)
             {
@@ -43,25 +44,28 @@ namespace TheTodoWeb.Pages
                 if (toDoItemDto != null)
                 {
                     toDoItemDto.IsCompleted = true;
+                    toDoItemDto.FinishedTime = DateTime.Now;
 
                     await _toDoItemService.UpdateAsync(toDoItemDto);
                 }
             }
 
-            return RedirectToPage("ToDoList");
+            return RedirectToPage("/ToDoList/UnCompletedToDoList");
+
         }
 
-        public async Task<IActionResult> OnPostCreateTaskAsync()
+        public async Task<IActionResult> OnPostCreateTask()
         {
             if (ModelState.IsValid)
             {
                 if (Description != null)
                 {
-                    ToDoItemDto toDoItemDto = new ToDoItemDto
+                    ToDoItemDto toDoItemDto = new()
                     {
                         Id = Guid.NewGuid(),
                         TaskDescription = Description,
                         CreatedTime = DateTime.Now,
+                        FinishedTime = null,
                         IsCompleted = false,
                         Priority = PriorityForm
                     };
@@ -70,7 +74,7 @@ namespace TheTodoWeb.Pages
                 }
             }
 
-            return RedirectToPage("ToDoList");
+            return RedirectToPage("/ToDoList/UnCompletedToDoList");
         }
     }
 }

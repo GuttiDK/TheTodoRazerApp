@@ -11,7 +11,9 @@ namespace TheTodoWeb.Pages.ToDoList
     {
         private readonly IToDoItemService _toDoItemService;
 
-        public ObservableCollection<ToDoItemDto> ToDoItems = new();
+        [BindProperty]
+        public ObservableCollection<ToDoItemDto>? ToDoItems { get; set; }
+
 
         public CompletedToDoListModel(IToDoItemService toDoItemService)
         {
@@ -20,9 +22,40 @@ namespace TheTodoWeb.Pages.ToDoList
 
         public async Task<IActionResult> OnGet()
         {
-            ToDoItems = await _toDoItemService.GetAllAsync();
+            ToDoItems = await _toDoItemService.GetAllCompletedAsync();
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostCompletedTask(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(id);
+
+                if (toDoItemDto != null)
+                {
+                    toDoItemDto.IsCompleted = false;
+                    toDoItemDto.FinishedTime = null;
+
+                    await _toDoItemService.UpdateAsync(toDoItemDto);
+                }
+            }
+            return RedirectToPage("/ToDoList/CompletedToDoList");
+        }
+
+        public async Task<IActionResult> OnPostDeleteTask(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(id);
+
+                if (toDoItemDto != null)
+                {
+                    await _toDoItemService.DeleteAsync(toDoItemDto);
+                }
+            }
+            return RedirectToPage("/ToDoList/CompletedToDoList");
         }
     }
 }

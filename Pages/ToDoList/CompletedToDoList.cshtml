@@ -6,33 +6,50 @@
 }
 
 <h3>ToDoList</h3>
-                            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Create</a>
 <hr />
 
-<table class="table table-hover">
-    <thead>
-     <tr>
-            <th>Id</th>
-            <th>Description</th>
-            <th>Created</th>
-            <th>Completed</th>
-            <th>Priory</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-<tbody>
-        @foreach (ToDoItemDto item in Model.ToDoItems)
-        {
-                                        <tr>
-                                            <td>@item.Id</td>
-                                            <td>@item.TaskDescription</td>
-                                            <td>@item.CreatedTime</td>
-                                            <td>@item.IsCompleted</td>
-                                            <td>@item.Priority</td>
-            <td>
-        <a class="btn btn-primary" href="/ToDoList/EditToDoList/@item.Id">Edit</a>
-            </td>
-                                        </tr>
-        }
-</tbody>
-</table>
+@if (Model.ToDoItems != null && Model.ToDoItems.Any())
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Finished</th>
+                <th>Completed</th>
+                <th>Priory</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ToDoItemDto item in Model.ToDoItems)
+            {
+
+                <tr>
+                    <form method="post" asp-page-handler="CompletedTask">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <td><a style="color: black; text" href="/ToDoList/EditToDoList/@item.Id">@item.TaskDescription</a></td>
+                        <td>@item.CreatedTime</td>
+                        <td>@item.FinishedTime</td>
+                        <td><input class="form-check-input" asp-for="@item.IsCompleted" type="submit" value="" checked></td>
+                        <td>@item.Priority</td>
+                    </form>
+
+                    <form method="post" asp-page-handler="DeleteTask">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <td>
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </td>
+                    </form>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+else
+{
+    <div class="alert alert-primary" role="alert">
+        No todo items found.
+    </div>
+}
