@@ -7,7 +7,7 @@ Todo work is a website where you can create tasks with title, description and pr
 ## The Maker
 Made by Christian C. Høttges
 
-Last updated: 26-09-2023
+Last updated: 13-10-2023
 
 # How to Use
 
@@ -31,14 +31,19 @@ Last updated: 26-09-2023
 
 # Features
 
-- **Front-end**: Allows users to see the Todolist and create button.
-- **Back-end**: Allows users use execute all the features of the application thru the repository and services.
+- **Front-end**: Allows users to see the Uncompleted and Completed, EditToDoList with create, delete and edit buttons.
+- **Back-end**: Allows users can use all the features of the application thru the repository and services.
 - **Repository pattern**: Allows users to use the repository pattern to get data from the database.
 - **Service pattern**: Allows users to use the service pattern to get data from the repository.
 
 # Updates
+**Version 1.0.0** (13/10/2023) - Current version)
+- Added full front-end and back-end with all features where it can talk together.
+- Added creating, deleting, editing and completing tasks and new dark theme.
+- Added views and stored produre to the database.
+- Fixed bug with back-end to not cast a error when trying to find all uncompleted or all completed or finding one by Guid.
 
-**Version 0.0.3** (28/09/2023) - Current version
+**Version 0.0.3** (28/09/2023)
 - Added first front-end page with data from the database.
 - Added delete, edit and still working on create and complete tasks.
 
@@ -52,14 +57,15 @@ Last updated: 26-09-2023
 - Features include Front-end templete.
 
 ## Upcoming features
-- Initial pre-release of Front-end
-- Creating, deleting, editing and completing tasks.
+- Adding a page where you can see all the tasks and create, update and delete.
+- Fixing the soo you can't change a id on edit where its readonly.
 
 ## In progress
-- Creating and editing tasks and completing tasks.
-- Fixing bug with back-end to not cast a error when trying to find all uncompleted or all completed or finding one by Guid.
+- Making a page where you can see all the tasks.
+- Fixing the soo you can't change a id on edit where its readonly.
 
 ## Tags
+- <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-1.0.0">The Build - v1.0.0</a>
 - <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-0.0.3">Front-end - v0.0.3</a>
 - <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-0.0.2">Full backend - v0.0.2</a>
 - <a href="https://github.com/GuttiDK/TheTodoRazerApp/releases/tag/version-0.0.1">Structure - v0.0.1</a>

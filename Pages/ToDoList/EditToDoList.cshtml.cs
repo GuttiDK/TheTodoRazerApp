@@ -43,34 +43,42 @@ namespace TheTodoWeb.Pages
 
             ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(ToDoItems.Id);
 
-            if (toDoItemDto != null)
+            if (ModelState.IsValid)
             {
-                
-                toDoItemDto.Id = ToDoItems.Id;
-                toDoItemDto.TaskDescription = ToDoItems.TaskDescription;
-                toDoItemDto.CreatedTime = ToDoItems.CreatedTime;
-                toDoItemDto.Priority = ToDoItems.Priority;
+                if (toDoItemDto != null)
+                {
 
-                if (toDoItemDto.IsCompleted == false && ToDoItems.IsCompleted == true)
-                {
-                    toDoItemDto.IsCompleted = true;
-                    toDoItemDto.FinishedTime = DateTime.Now;
-                }
-                else if (toDoItemDto.IsCompleted == true && ToDoItems.IsCompleted == false)
-                {
-                    toDoItemDto.IsCompleted = false;
-                    toDoItemDto.FinishedTime = null;
-                }
-                else if (toDoItemDto.IsCompleted == true && ToDoItems.IsCompleted == true)
-                {
-                    toDoItemDto.IsCompleted = ToDoItems.IsCompleted;
-                    toDoItemDto.FinishedTime = ToDoItems.FinishedTime;
-                }
+                    toDoItemDto.Id = ToDoItems.Id;
+                    toDoItemDto.TaskDescription = ToDoItems.TaskDescription;
+                    toDoItemDto.CreatedTime = ToDoItems.CreatedTime;
+                    toDoItemDto.Priority = ToDoItems.Priority;
 
-                await _toDoItemService.UpdateAsync(toDoItemDto);
+                    if (toDoItemDto.IsCompleted == false && ToDoItems.IsCompleted == true)
+                    {
+                        toDoItemDto.IsCompleted = true;
+                        toDoItemDto.FinishedTime = DateTime.UtcNow;
+                        await _toDoItemService.UpdateAsync(toDoItemDto);
+                        return RedirectToPage("/ToDoList/CompletedToDoList");
+                    }
+                    else if (toDoItemDto.IsCompleted == true && ToDoItems.IsCompleted == false)
+                    {
+                        toDoItemDto.IsCompleted = false;
+                        toDoItemDto.FinishedTime = null;
+                        await _toDoItemService.UpdateAsync(toDoItemDto);
+                        return RedirectToPage("/ToDoList/UnCompletedToDoList");
+                    }
+                    else
+                    {
+                        toDoItemDto.IsCompleted = ToDoItems.IsCompleted;
+                        toDoItemDto.FinishedTime = ToDoItems.FinishedTime;
+                    }
+
+                    await _toDoItemService.UpdateAsync(toDoItemDto);
+                }
             }
 
             return Page();
+
         }
 
     }

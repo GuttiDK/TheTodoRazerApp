@@ -44,7 +44,7 @@ namespace TheTodoWeb.Pages
                 if (toDoItemDto != null)
                 {
                     toDoItemDto.IsCompleted = true;
-                    toDoItemDto.FinishedTime = DateTime.Now;
+                    toDoItemDto.FinishedTime = DateTime.UtcNow;
 
                     await _toDoItemService.UpdateAsync(toDoItemDto);
                 }

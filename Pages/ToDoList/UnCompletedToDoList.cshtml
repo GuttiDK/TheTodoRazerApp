@@ -7,7 +7,7 @@
 }
 
 <h3>ToDoList - Uncompleted</h3>
-                            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Create</a>
+<a class="btn btn-success" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Create</a>
 <hr />
 
 @if (Model.ToDoItems != null && Model.ToDoItems.Any())
@@ -38,7 +38,6 @@
         </tbody>
     </table>
 }
-
 else
 {
     <div class="alert alert-primary" role="alert">
@@ -72,7 +71,7 @@ else
             }
           </select>
          </div>
-         <button class="btn btn-primary" type="submit">Create</button>
+         <button class="btn btn-success" type="submit">Create</button>
     </form>
   </div>
 </div>
