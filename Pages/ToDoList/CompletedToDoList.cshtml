@@ -5,19 +5,19 @@
     ViewData["Title"] = "CompletedToDoList";
 }
 
-<h3>ToDoList</h3>
+<h3>ToDoList - Completed</h3>
 <hr />
 
 @if (Model.ToDoItems != null && Model.ToDoItems.Any())
 {
-    <table class="table table-hover">
+    <table class="table table-dark table-striped table-hover">
         <thead>
             <tr>
                 <th>Description</th>
+                <th>Priory</th>
                 <th>Created</th>
                 <th>Finished</th>
                 <th>Completed</th>
-                <th>Priory</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,11 +28,12 @@
                 <tr>
                     <form method="post" asp-page-handler="CompletedTask">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <td><a style="color: black; text" href="/ToDoList/EditToDoList/@item.Id">@item.TaskDescription</a></td>
+                        <td><a style="color: #fff" href="/ToDoList/EditToDoList/@item.Id">@item.TaskDescription</a></td>
+                        <td>@item.Priority</td>
                         <td>@item.CreatedTime</td>
                         <td>@item.FinishedTime</td>
                         <td><input class="form-check-input" asp-for="@item.IsCompleted" type="submit" value="" checked></td>
-                        <td>@item.Priority</td>
+
                     </form>
 
                     <form method="post" asp-page-handler="DeleteTask">
@@ -50,6 +51,6 @@
 else
 {
     <div class="alert alert-primary" role="alert">
-        No todo items found.
-    </div>
+        No completed todo items found.
+        </div>
 }

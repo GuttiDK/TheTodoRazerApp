@@ -64,7 +64,7 @@ namespace TheTodoWeb.Pages
                     {
                         Id = Guid.NewGuid(),
                         TaskDescription = Description,
-                        CreatedTime = DateTime.Now,
+                        CreatedTime = DateTime.UtcNow,
                         FinishedTime = null,
                         IsCompleted = false,
                         Priority = PriorityForm

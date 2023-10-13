@@ -6,19 +6,20 @@
     ViewData["Title"] = "UnCompletedToDoList";
 }
 
-<h3>ToDoList</h3>
+<h3>ToDoList - Uncompleted</h3>
                             <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Create</a>
 <hr />
 
 @if (Model.ToDoItems != null && Model.ToDoItems.Any())
 {
-    <table class="table table-hover">
+    <table class="table table-dark table-striped table-hover">
         <thead>
             <tr>
                 <th>Description</th>
+                <th>Priory</th>
                 <th>Created</th>
                 <th>Completed</th>
-                <th>Priory</th>
+
             </tr>
         </thead>
         <tbody>
@@ -27,10 +28,10 @@
                 <form method="post" asp-page-handler="CompletedTask">
                     <tr>
                         <input type="hidden" name="id" value="@item.Id" />
-                        <td><a style="color: black; text" href="/ToDoList/EditToDoList/@item.Id">@item.TaskDescription</a></td>
+                        <td><a style="color: #fff;" href="/ToDoList/EditToDoList/@item.Id">@item.TaskDescription</a></td>
+                        <td>@item.Priority</td>
                         <td>@item.CreatedTime</td>
                         <td><input class="form-check-input" asp-for="@item.IsCompleted" type="submit" value=""></td>
-                        <td>@item.Priority</td>
                     </tr>
                 </form>
             }
@@ -40,39 +41,38 @@
 
 else
 {
-<div class="alert alert-primary" role="alert">
-No todo items found.
-</div>
+    <div class="alert alert-primary" role="alert">
+        No uncompleted todo items found.
+    </div>
 }
 
 
 
-                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-  <div class="offcanvas-body">
-    <div>
-      Here can you create a new todo item.
-      <hr />
-    </div>
-<form method="post" asp-page-handler="CreateTask">
-    <div class="input-group mb-3">
-  <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
-  <input type="text" class="form-control" asp-for="Description" id="description" name="description">
-</div>
-
-<div class="input-group mb-3">
-  <label class="input-group-text" for="inputGroupSelect01">Priority</label>
-  <select class="form-select" asp-for="PriorityForm" name="priorityForm">
-                    @foreach (PrioryEnumDto priorityEnum in Enum.GetValues(typeof(PrioryEnumDto)))
-                    {
-                     <option value="@priorityEnum">@priorityEnum</option>
-                    }
-  </select>
-  </div>
-<button class="btn btn-primary" type="submit">Create a task</button>
-</form>
+    <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Create a Task</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+        <div>
+            Here can you create a new todo item.
+            <hr />
+        </div>
+    <form method="post" asp-page-handler="CreateTask">
+        <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+        <input type="text" class="form-control" asp-for="Description" id="description" name="description">
+       </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">Priority</label>
+          <select class="form-select" asp-for="PriorityForm" name="priorityForm">
+            @foreach (PrioryEnumDto priorityEnum in Enum.GetValues(typeof(PrioryEnumDto)))
+            {
+                <option value="@priorityEnum">@priorityEnum</option>
+            }
+          </select>
+         </div>
+         <button class="btn btn-primary" type="submit">Create</button>
+    </form>
   </div>
 </div>

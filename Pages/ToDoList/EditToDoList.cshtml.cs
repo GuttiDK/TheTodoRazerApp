@@ -40,24 +40,37 @@ namespace TheTodoWeb.Pages
 
         public async Task<IActionResult> OnPostUpdateTask()
         {
-            if (ModelState.IsValid)
+
+            ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(ToDoItems.Id);
+
+            if (toDoItemDto != null)
             {
-                ToDoItemDto toDoItemDto = await _toDoItemService.GetByIDAsync(ToDoItems.Id);
+                
+                toDoItemDto.Id = ToDoItems.Id;
+                toDoItemDto.TaskDescription = ToDoItems.TaskDescription;
+                toDoItemDto.CreatedTime = ToDoItems.CreatedTime;
+                toDoItemDto.Priority = ToDoItems.Priority;
 
-                if (toDoItemDto != null)
+                if (toDoItemDto.IsCompleted == false && ToDoItems.IsCompleted == true)
                 {
-                    toDoItemDto.Id = ToDoItems.Id;
-                    toDoItemDto.TaskDescription = ToDoItems.TaskDescription;
-                    toDoItemDto.CreatedTime = ToDoItems.CreatedTime;
-                    toDoItemDto.FinishedTime = ToDoItems.FinishedTime;
+                    toDoItemDto.IsCompleted = true;
+                    toDoItemDto.FinishedTime = DateTime.Now;
+                }
+                else if (toDoItemDto.IsCompleted == true && ToDoItems.IsCompleted == false)
+                {
+                    toDoItemDto.IsCompleted = false;
+                    toDoItemDto.FinishedTime = null;
+                }
+                else if (toDoItemDto.IsCompleted == true && ToDoItems.IsCompleted == true)
+                {
                     toDoItemDto.IsCompleted = ToDoItems.IsCompleted;
-                    toDoItemDto.Priority = ToDoItems.Priority;
-
-                    await _toDoItemService.UpdateAsync(toDoItemDto);
+                    toDoItemDto.FinishedTime = ToDoItems.FinishedTime;
                 }
 
+                await _toDoItemService.UpdateAsync(toDoItemDto);
             }
-            return RedirectToPage("/ToDoList/UnCompletedToDoList");
+
+            return Page();
         }
 
     }

@@ -4,36 +4,79 @@
 @{
 }
 
-<h3>EditToDoList</h3>
+<h3>ToDoList - Edit</h3>
 <hr />
 <div>
     Here can you edit a todo item.
     <hr />
     </div>
-@if (Model.ToDoItems != null)
+@if (@Model.ToDoItems != null)
 {
-    <form method="post" asp-page-handler="UpdateTask">
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
-            <input type="text" class="form-control" asp-for="ToDoItems.TaskDescription" id="description" name="description">
-        </div>
+        <form method="post" asp-page-handler="UpdateTask">
 
-        <div class="input-group mb-3">
-            <label class="input-group-text">Priority</label>
-            <select class="form-select" asp-for="ToDoItems.Priority" name="priorityForm">
+        <div class="mb-3">
+                            <label class="form-label">Id</label>
+                    <input type="text" class="form-control" asp-for="ToDoItems.Id" disabled>
+    </div>
+
+                            <div class="mb-3">
+                        <label class="form-label">Description</label>
+                    <input type="text" class="form-control" asp-for="ToDoItems.TaskDescription">
+            </div>
+
+                            <div class="mb-3">
+                    <label class="form-label">Priority</label>
+                    <select class="form-select" asp-for="ToDoItems.Priority">
                 @foreach (PrioryEnumDto priorityEnum in Enum.GetValues(typeof(PrioryEnumDto)))
                 {
-                    <option value="@priorityEnum">@priorityEnum</option>
+                                    <option value="@priorityEnum">@priorityEnum</option>
                 }
-            </select>
-        </div>
-        <button class="btn btn-primary" type="submit">Update</button>
-    </form>
+                    </select>
+                </div>
+
+                        <div class="mb-3">
+                    <label class="form-label">Created Time</label>
+                            <input type="datetime-local" class="form-control" asp-for="ToDoItems.CreatedTime" asp-format="{0:yyyy-MM-ddTHH:mm}">
+                </div>
+
+        @if (Model.ToDoItems.IsCompleted != false && Model.ToDoItems.FinishedTime != null)
+        {
+                                                <div class="mb-3">
+                                <label class="form-label">Finished Time</label>
+                                            <input type="datetime-local" class="form-control" asp-for="ToDoItems.FinishedTime" asp-format="{0:yyyy-MM-ddTHH:mm}">
+                    </div>
+
+                                                        <div class="mb-3">
+                                        <label class="form-label">IsCompleted</label>
+                                            <input type="checkbox" class="" asp-for="ToDoItems.IsCompleted" checked>
+                                                    </div>
+        }
+
+
+        @if (Model.ToDoItems.IsCompleted == false && Model.ToDoItems.FinishedTime == null)
+                {
+                           
+                            <div class="mb-3">
+                                <label class="form-label">IsCompleted</label>
+                                    <input type="checkbox" class="" asp-for="ToDoItems.IsCompleted">
+                                            </div>
+           
+        }
+
+
+                <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Update</button>
+                 <a class="btn btn-danger" href='javascript:history.go(-1)'>Cancel</a>
+</div>
+
+        </form>
+
+
 }
 else
 {
-    <div class="alert alert-primary" role="alert">
-        No todo items found.
-    </div>
+        <div class="alert alert-primary" role="alert">
+            No todo item found.
+            </div>
 }
 

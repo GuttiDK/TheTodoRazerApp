@@ -9,7 +9,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #bfc0c0;
 }
 
 html {
@@ -17,6 +17,28 @@ html {
   min-height: 100%;
 }
 
+.nav-link {
+  color: #bfc0c0;
+  background-color: #232323;
+}
+
+.navbar-brand {
+  color: #bfc0c0;
+  background-color: #232323;
+}
+
+a {
+  color: #bfc0c0;
+}
+
+.offcanvas {
+    color: #bfc0c0;
+    background-color: #232323;
+}
+
+
 body {
-  margin-bottom: 60px;
+    color: #bfc0c0;
+    background-color: #232323;
+    margin-bottom: 60px;
 }
