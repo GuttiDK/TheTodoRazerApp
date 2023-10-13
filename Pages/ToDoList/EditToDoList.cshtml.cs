@@ -56,7 +56,7 @@ namespace TheTodoWeb.Pages
                     if (toDoItemDto.IsCompleted == false && ToDoItems.IsCompleted == true)
                     {
                         toDoItemDto.IsCompleted = true;
-                        toDoItemDto.FinishedTime = DateTime.UtcNow;
+                        toDoItemDto.FinishedTime = DateTime.Now;
                         await _toDoItemService.UpdateAsync(toDoItemDto);
                         return RedirectToPage("/ToDoList/CompletedToDoList");
                     }

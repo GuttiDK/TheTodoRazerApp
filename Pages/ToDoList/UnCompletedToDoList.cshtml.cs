@@ -44,7 +44,7 @@ namespace TheTodoWeb.Pages
                 if (toDoItemDto != null)
                 {
                     toDoItemDto.IsCompleted = true;
-                    toDoItemDto.FinishedTime = DateTime.UtcNow;
+                    toDoItemDto.FinishedTime = DateTime.Now;
 
                     await _toDoItemService.UpdateAsync(toDoItemDto);
                 }
@@ -64,7 +64,7 @@ namespace TheTodoWeb.Pages
                     {
                         Id = Guid.NewGuid(),
                         TaskDescription = Description,
-                        CreatedTime = DateTime.UtcNow,
+                        CreatedTime = DateTime.Now,
                         FinishedTime = null,
                         IsCompleted = false,
                         Priority = PriorityForm
